@@ -18,6 +18,8 @@ public class PessoaRepository : IPessoaRepository
     {
         try
         {
+            pessoa.IdPessoa = Guid.NewGuid().ToString();
+            
             await _context.Pessoas!.AddAsync(pessoa);
             await _context.SaveChangesAsync();
 

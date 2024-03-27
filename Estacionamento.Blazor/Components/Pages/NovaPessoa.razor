@@ -1,0 +1,51 @@
+@page "/novapessoa"
+
+<PageTitle>Novo Livro</PageTitle>
+
+<div class="row justify-content-center">
+    <div class="col-6">
+        <EditForm Enhance="true" method="post" FormName="NovaPessoaForm" OnValidSubmit="AdicionarPessoa" Model="Pessoa" id="AddPessoa">
+             <h3>Nova Pessoa</h3>
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <InputText id="nome" @bind-Value="Pessoa.Nome" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="sobrenome" class="form-label">Sobrenome</label>
+                <InputText id="sobrenome" @bind-Value="Pessoa.SobreNome" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="lancamento" class="form-label">Email</label>
+                <InputText id="lancamento" @bind-Value="Pessoa.Email" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="telefone" class="form-label">Telefone</label>
+                <InputText id="telefone" @bind-Value="Pessoa.Telefone" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary shadow-none">
+                    Enviar
+                </button>
+                <a href="/pessoas" class="btn btn-secondary ms-3" data-enhance-nav="false">
+                    Retornar para pessoas
+                </a>
+            </div>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm(FormName = "NovaPessoaForm")]
+    public Pessoa? Pessoa { get; set; }
+
+    protected override void OnInitialized() =>
+        Pessoa ??= new Pessoa(string.Empty, string.Empty, string.Empty, string.Empty);
+
+    private async Task AdicionarPessoa()
+    {
+        await pessoaRepository.AdicionarPessoa(Pessoa);
+        navigation.NavigateTo("/");
+    }
+}

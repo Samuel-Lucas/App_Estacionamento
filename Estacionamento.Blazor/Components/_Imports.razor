@@ -8,3 +8,10 @@
 @using Microsoft.JSInterop
 @using Estacionamento.Blazor
 @using Estacionamento.Blazor.Components
+
+@using Estacionamento.Infrastructure.Repositories
+@using Estacionamento.Domain.Entities
+@using Estacionamento.Domain.Interfaces
+
+@inject IPessoaRepository pessoaRepository
+@inject NavigationManager navigation
