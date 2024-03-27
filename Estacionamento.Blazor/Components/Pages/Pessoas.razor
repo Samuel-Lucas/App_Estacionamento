@@ -1,0 +1,31 @@
+@page "/pessoas"
+
+@attribute [StreamRendering]
+
+<h3>Pessoas</h3>
+
+<p>
+    <a href="/novolivro">Cadastrar Nova Pessoa</a>
+</p>
+@if (pessoas is null)
+{
+   <p></p>
+}
+else
+{
+    <div class="row">
+        @foreach (var pessoa in pessoas)
+        {
+            <PessoasCard Pessoa="@pessoa" />
+        }
+    </div>
+}
+
+@code {
+    IEnumerable<Pessoa>? pessoas;
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(800);
+        pessoas = await pessoaRepository.ObterPessoas();
+    }
+} 
