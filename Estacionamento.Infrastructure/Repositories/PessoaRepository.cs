@@ -49,22 +49,17 @@ public class PessoaRepository : IPessoaRepository
         }
     }
 
-    public async Task DeletarPessoa(Pessoa pessoa)
+    public async Task DeletarPessoa(string idPessoa)
     {
-        try
+        var pessoa = await ObterPessoa(idPessoa);
+        if (pessoa is not null)
         {
-            if (pessoa is not null)
-            {
-                _context.Pessoas!.Remove(pessoa!);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new ArgumentNullException("Dados inválidos para a exclusão...");
-            }
-        } catch (Exception e)
+            _context.Pessoas!.Remove(pessoa);
+            await _context.SaveChangesAsync();
+        }
+        else
         {
-            throw new Exception($"Ocorre um erro ao buscar pessoa de id {pessoa.IdPessoa}: {e.Message}");
+            throw new InvalidOperationException("Dados inválidos para exclusão");
         }
     }
 

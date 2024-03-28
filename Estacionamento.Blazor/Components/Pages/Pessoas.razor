@@ -1,7 +1,5 @@
 @page "/pessoas"
 
-@attribute [StreamRendering]
-
 <h3>Pessoas</h3>
 
 <p>
@@ -16,7 +14,7 @@ else
     <div class="row">
         @foreach (var pessoa in pessoas)
         {
-            <PessoasCard Pessoa="@pessoa" />
+            <PessoasCard @rendermode="InteractiveServer" Pessoa="@pessoa" />
         }
     </div>
 }
