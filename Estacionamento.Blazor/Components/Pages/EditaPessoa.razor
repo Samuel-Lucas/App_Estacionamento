@@ -1,0 +1,21 @@
+@page "/editapessoa/{idpessoa}"
+
+<PageTitle>Editar Pessoa</PageTitle>
+
+<div class="row justify-content-center">
+    <div class="col-6">
+        <PessoaForm ModoEdicao="true" IdPessoa="@IdPessoa" OnValidaPessoaSubmit="EditarPessoa" />
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string IdPessoa { get; set; } = null!;
+
+
+    private async Task EditarPessoa(Pessoa pessoa)
+    {
+        await pessoaRepository.AtualizarPessoa(pessoa);
+        navigation.NavigateTo("/pessoas");
+    }
+}

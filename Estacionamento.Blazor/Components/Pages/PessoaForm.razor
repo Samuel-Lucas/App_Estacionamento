@@ -1,0 +1,73 @@
+@if(Pessoa is not null)
+{
+    <EditForm Enhance="true" method="post" FormName="PessoaForm" OnValidSubmit="EditaAdicionaPessoa"
+         Model="Pessoa" id="EditaAdicionaPessoa">
+
+        <h3>@Cabecalho</h3>
+
+        @if (ModoEdicao)
+        {
+            <input type="hidden" name="Pessoa.IdPessoa" value="@Pessoa.IdPessoa" />
+        }
+
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <InputText id="nome" @bind-Value="Pessoa.Nome" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="sobrenome" class="form-label">Sobrenome</label>
+            <InputText id="sobrenome" @bind-Value="Pessoa.SobreNome" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <InputText id="email" @bind-Value="Pessoa.Email" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="telefone" class="form-label">Telefone</label>
+            <InputText id="telefone" @bind-Value="Pessoa.Telefone" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary">
+                Enviar
+            </button>
+            <a href="/pessoas" class="btn btn-secondary ms-3" data-enhance-nav="false">
+                Retornar para pessoas
+            </a>
+        </div>
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+   </EditForm>
+}
+
+
+@code {
+    [Parameter]
+    public bool ModoEdicao { get; set; } = false;
+
+    [Parameter]
+    public string IdPessoa { get; set; }
+
+    [Parameter]
+    //informar o componente Pai que o Form foi enviado
+    public EventCallback<Pessoa> OnValidaPessoaSubmit { get; set; }
+
+    [SupplyParameterFromForm(FormName = "PessoaForm")]
+    public Pessoa? Pessoa { get; set; }
+
+    private string Cabecalho => ModoEdicao ? $"Editar Pessoa {IdPessoa}" : "Nova Pessoa";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ModoEdicao)
+            Pessoa ??= await pessoaRepository.ObterPessoa(IdPessoa);
+        else
+           Pessoa ??= new Pessoa(string.Empty, string.Empty, string.Empty, string.Empty);
+    }
+
+    private async Task EditaAdicionaPessoa()
+    {
+        await OnValidaPessoaSubmit.InvokeAsync(Pessoa);
+    }
+}
