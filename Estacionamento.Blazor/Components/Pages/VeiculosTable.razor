@@ -1,0 +1,52 @@
+<tr>
+      <td class="text-center align-middle">
+            @veiculo.marca
+      </td>
+      <td class="text-center align-middle">
+             @veiculo.modelo
+      </td>
+      <td class="text-center align-middle">
+             @veiculo.cor
+      </td>
+      <td class="text-center align-middle">
+             @veiculo.placa
+      </td>
+      <td class="text-center align-middle">
+             @veiculo.nome @veiculo.sobreNome
+      </td>
+      <td>
+        <div class="d-flex justify-content-around col-6 align-items-center mt-1">
+            <a href='/editaveiculo/@veiculo.idVeiculo' class="btn btn-primary">Editar</a>
+            <button @onclick="ConfirmaDialogo" class="btn btn-danger">Remover</button>
+        </div>
+      </td>
+</tr>
+
+<DialogoComponent Exibir="exibirDialogo" 
+                  OnCancel="CancelaExclusao"
+                  OnDelete="ConfirmaExclusao">
+   <h3 style="color:red;font-weight:bold">Confirma remoção desse veiculo : @veiculo.marca ?</h3>
+</DialogoComponent>
+
+@code {
+    [Parameter]
+    public required VeiculosResponse veiculo { get; set; }
+    private bool exibirDialogo;
+
+    private void ConfirmaDialogo()
+    {
+        exibirDialogo = true;
+    }
+
+    private void CancelaExclusao()
+    {
+        exibirDialogo = false;
+    }
+
+    private async Task ConfirmaExclusao()
+    {
+        await veiculoRepository.DeletarVeiculo(veiculo.idVeiculo);
+        exibirDialogo = false;
+        navigation.NavigateTo("/veiculos");
+    }
+}

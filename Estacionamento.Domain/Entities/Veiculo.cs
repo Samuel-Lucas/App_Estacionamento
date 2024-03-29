@@ -8,4 +8,14 @@ public class Veiculo
     public string Cor { get; set; } = null!;
     public string Placa { get; set; } = null!;
     public string IdPessoa { get; set; } = null!;
+    public Pessoa Pessoa { get; set; } = null!;
+
+    public Veiculo(string marca, string modelo, string cor, string placa, string idPessoa)
+    {
+        Marca = marca;
+        Modelo = modelo;
+        Cor = cor;
+        Placa = placa;
+        IdPessoa = idPessoa;
+    }
 }

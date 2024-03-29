@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Estacionamento.Blazor.Components;
 using Estacionamento.CrossCutting.DependenciesApp;
 using Estacionamento.Infrastructure.Context;
@@ -10,6 +11,14 @@ builder.Services.AddRazorComponents()
 
 // Registrar serviços
 builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddRazorPages().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
+
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => 
+options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 

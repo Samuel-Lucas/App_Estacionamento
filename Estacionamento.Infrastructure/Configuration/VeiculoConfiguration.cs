@@ -13,6 +13,6 @@ public class VeiculoConfiguration : IEntityTypeConfiguration<Veiculo>
         builder.Property(p => p.Modelo).HasMaxLength(20).IsRequired();
         builder.Property(p => p.Cor).HasMaxLength(20).IsRequired();
         builder.Property(p => p.Placa).HasMaxLength(20).IsRequired();
-        builder.Property(f => f.IdPessoa).IsRequired();
+        builder.Property(p => p.IdPessoa).IsRequired();
     }
 }

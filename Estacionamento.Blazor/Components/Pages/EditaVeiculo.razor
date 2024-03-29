@@ -1,0 +1,20 @@
+@page "/editaveiculo/{idveiculo:int}"
+
+<PageTitle>Editar Veiculo</PageTitle>
+
+<div class="row justify-content-center">
+    <div class="col-6">
+        <VeiculoForm ModoEdicao="true" IdVeiculo="@IdVeiculo" OnValidaVeiculoSubmit="EditarVeiculo" />
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int IdVeiculo { get; set; }
+
+    private async Task EditarVeiculo(Veiculo veiculo)
+    {
+        await veiculoRepository.AtualizarVeiculo(veiculo);
+        navigation.NavigateTo("/veiculos");
+    }
+}

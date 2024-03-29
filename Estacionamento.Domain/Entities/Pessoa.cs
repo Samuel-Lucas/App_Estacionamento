@@ -16,6 +16,7 @@ public class Pessoa
     public string Email { get; set; } = null!;
     [StringLength(12)]
     public string Telefone { get; set; } = null!;
+    public IEnumerable<Veiculo> Veiculos { get; set; }
 
     public Pessoa(string nome, string sobreNome, string email, string telefone)
     {

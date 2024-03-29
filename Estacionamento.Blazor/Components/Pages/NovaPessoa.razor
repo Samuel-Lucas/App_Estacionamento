@@ -10,6 +10,6 @@
     private async Task AdicionarPessoa(Pessoa pessoa)
     {
         await pessoaRepository.AdicionarPessoa(pessoa);
-        navigation.NavigateTo("/");
+        navigation.NavigateTo("/pessoas");
     }
 }

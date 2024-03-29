@@ -1,0 +1,41 @@
+@page "/veiculos"
+
+<h3>Veiculos cadastrados</h3>
+
+<p>
+    <a href="/novoveiculo">Cadastrar Novo Veiculo</a>
+</p>
+@if (veiculos is null)
+{
+   <p>Sem veiculos cadastrados</p>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+            <th scope="col" class="text-center">Marca</th>
+            <th scope="col" class="text-center">Modelo</th>
+            <th scope="col" class="text-center">Cor</th>
+            <th scope="col" class="text-center">Placa</th>
+            <th scope="col" class="text-center">Dono do veiculo</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var veiculo in veiculos)
+            {
+                <VeiculosTable @rendermode="InteractiveServer" Veiculo="@veiculo" />
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    IEnumerable<VeiculosResponse>? veiculos;
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(800);
+        veiculos = await veiculoRepository.ObterVeiculos();
+    }
+} 

@@ -1,0 +1,15 @@
+@page "/novoveiculo"
+
+<PageTitle>Novo Veiculo</PageTitle>
+
+    <div class="col-6">
+        <VeiculoForm ModoEdicao="false" OnValidaVeiculoSubmit="AdicionarVeiculo" />
+    </div>
+
+@code {
+    private async Task AdicionarVeiculo(Veiculo veiculo)
+    {
+        await veiculoRepository.AdicionarVeiculo(veiculo);
+        navigation.NavigateTo("/veiculos");
+    }
+}

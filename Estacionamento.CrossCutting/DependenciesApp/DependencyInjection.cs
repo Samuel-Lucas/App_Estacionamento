@@ -18,6 +18,7 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>(opt => opt.UseSqlite(connectionString));
 
         services.AddScoped<IPessoaRepository, PessoaRepository>();
+        services.AddScoped<IVeiculoRepository, VeiculoRepository>();
 
         return services;
     }

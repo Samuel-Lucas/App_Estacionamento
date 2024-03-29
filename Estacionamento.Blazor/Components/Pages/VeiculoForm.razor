@@ -1,0 +1,82 @@
+@if(Veiculo is not null)
+{
+    <EditForm Enhance="true" method="post" FormName="VeiculoForm" OnValidSubmit="EditaAdicionaVeiculo"
+         Model="Veiculo" id="EditaAdicionaVeiculo">
+
+        <h3>@Cabecalho</h3>
+
+        @if (ModoEdicao)
+        {
+            <input type="hidden" name="Veiculo.IdVeiculo" value="@Veiculo.IdVeiculo" />
+        }
+
+        <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <InputText id="marca" @bind-Value="Veiculo.Marca" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo</label>
+            <InputText id="modelo" @bind-Value="Veiculo.Modelo" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="cor" class="form-label">Cor</label>
+            <InputText id="cor" @bind-Value="Veiculo.Cor" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="placa" class="form-label">Placa</label>
+            <InputText id="placa" @bind-Value="Veiculo.Placa" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="idPessoa" class="form-label">Codigo identificador da pessoa</label>
+            <InputText id="idPessoa" @bind-Value="Veiculo.IdPessoa" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary">
+                Enviar
+            </button>
+            <a href="/veiculos" class="btn btn-secondary ms-3" data-enhance-nav="false">
+                Retornar para veiculos
+            </a>
+        </div>
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+   </EditForm>
+}
+
+@code {
+    [Parameter]
+    public bool ModoEdicao { get; set; } = false;
+
+    [Parameter]
+    public int IdVeiculo { get; set; }
+
+    [Parameter]
+    //informar o componente Pai que o Form foi enviado
+    public EventCallback<Veiculo> OnValidaVeiculoSubmit { get; set; }
+
+    [SupplyParameterFromForm(FormName = "VeiculoForm")]
+    public Veiculo? Veiculo { get; set; }
+
+    public Pessoa? Pessoa {get; set; }
+
+    private string Cabecalho => ModoEdicao ? $"Editar Veiculo {IdVeiculo}" : "Novo Veiculo";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ModoEdicao)
+        {
+            Veiculo ??= await veiculoRepository.ObterVeiculo(IdVeiculo);
+        }
+        else
+        {
+            Veiculo ??= new Veiculo(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+        }
+    }
+
+    private async Task EditaAdicionaVeiculo()
+    {
+        await OnValidaVeiculoSubmit.InvokeAsync(Veiculo);
+    }
+}

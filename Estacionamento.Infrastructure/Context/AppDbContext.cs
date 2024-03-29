@@ -14,6 +14,11 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<Veiculo>()
+            .HasOne(v => v.Pessoa)
+            .WithMany(p => p.Veiculos)
+            .HasForeignKey(v => v.IdPessoa);
+            
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
