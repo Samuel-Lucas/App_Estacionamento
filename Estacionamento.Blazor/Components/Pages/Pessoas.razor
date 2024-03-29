@@ -23,7 +23,7 @@ else
         <tbody>
             @foreach (var pessoa in pessoas)
             {
-                <PessoasCard @rendermode="InteractiveServer" Pessoa="@pessoa" />
+                <PessoasTable @rendermode="InteractiveServer" Pessoa="@pessoa" />
             }
         </tbody>
     </table>
