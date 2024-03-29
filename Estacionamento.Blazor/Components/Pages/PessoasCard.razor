@@ -1,4 +1,4 @@
-<div class="col-md-3 mb-3">
+@* <div class="col-md-3 mb-3">
     <div class="card custom-card">
         <div class="card-body">
             <p class="card-title">@pessoa.IdPessoa</p>
@@ -11,7 +11,25 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
+
+<tr>
+      <td class="text-center align-middle">
+            @pessoa.Nome
+      </td>
+      <td class="text-center align-middle">
+            @pessoa.SobreNome
+      </td>
+      <td class="text-center align-middle">
+             @pessoa.Email
+      </td>
+      <td>
+        <div class="d-flex justify-content-around col-6 align-items-center mt-1">
+            <a href='/editapessoa/@pessoa.IdPessoa' class="btn btn-primary">Editar</a>
+            <button @onclick="ConfirmaDialogo" class="btn btn-danger">Remover</button>
+        </div>
+      </td>
+</tr>
 
 <DialogoComponent Exibir="exibirDialogo" 
                   OnCancel="CancelaExclusao"
