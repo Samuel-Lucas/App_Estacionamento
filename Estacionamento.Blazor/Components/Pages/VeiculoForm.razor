@@ -26,10 +26,9 @@
             <label for="placa" class="form-label">Placa</label>
             <InputText id="placa" @bind-Value="Veiculo.Placa" class="form-control" />
         </div>
-        <div class="mb-3">
-            <label for="idPessoa" class="form-label">Codigo identificador da pessoa</label>
-            <input type="text" name="Veiculo.IdPessoa" value="@IdPessoa" />
-        </div>
+        <br />
+        <input type="hidden" name="Veiculo.IdPessoa" value="@IdPessoa" />
+        <br />
         <div class="mb-3">
             <button class="btn btn-success">
                 Enviar
@@ -65,6 +64,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        IdPessoa ??= await authenticationRepository.GetAuthenticatedIdPessoa();
         if (ModoEdicao)
         {
             Veiculo ??= await veiculoRepository.ObterVeiculo(IdVeiculo);
