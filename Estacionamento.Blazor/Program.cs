@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using Estacionamento.Blazor.Components;
 using Estacionamento.CrossCutting.DependenciesApp;
 using Estacionamento.Infrastructure.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,18 @@ builder.Services.AddRazorPages().AddJsonOptions(options =>
 builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => 
 options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => 
+    {
+        options.Cookie.Name = "auth_token";
+        options.LoginPath = "/";
+        options.Cookie.MaxAge = TimeSpan.FromMinutes(10);
+        options.AccessDeniedPath = "/access-denied";
+    });
+
+builder.Services.AddAuthorization();
+builder.Services.AddCascadingAuthenticationState();
+
 var app = builder.Build();
 
 CreateDatabase(app);
@@ -36,6 +49,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

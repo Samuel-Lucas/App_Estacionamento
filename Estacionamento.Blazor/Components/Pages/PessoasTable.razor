@@ -8,8 +8,11 @@
       <td class="text-center align-middle">
              @pessoa.Email
       </td>
+      <td class="text-center align-middle">
+             @pessoa.Telefone
+      </td>
       <td>
-        <div class="d-flex justify-content-around col-6 align-items-center mt-1">
+        <div class="d-flex justify-content-around col-8 align-items-center mt-1">
             <a href='/editapessoa/@pessoa.IdPessoa' class="btn btn-primary">Editar</a>
             <button @onclick="ConfirmaDialogo" class="btn btn-danger">Remover</button>
         </div>

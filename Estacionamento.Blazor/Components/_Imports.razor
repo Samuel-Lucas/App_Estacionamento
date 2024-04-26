@@ -12,7 +12,9 @@
 @using Estacionamento.Infrastructure.Repositories
 @using Estacionamento.Domain.Entities
 @using Estacionamento.Domain.Interfaces
+@using Estacionamento.Domain.ViewModels
 
 @inject IPessoaRepository pessoaRepository
 @inject IVeiculoRepository veiculoRepository
+@inject IAuthenticationRepository authenticationRepository
 @inject NavigationManager navigation

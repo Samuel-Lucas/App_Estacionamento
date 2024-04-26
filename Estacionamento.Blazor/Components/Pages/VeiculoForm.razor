@@ -28,10 +28,10 @@
         </div>
         <div class="mb-3">
             <label for="idPessoa" class="form-label">Codigo identificador da pessoa</label>
-            <InputText id="idPessoa" @bind-Value="Veiculo.IdPessoa" class="form-control" />
+            <input type="text" name="Veiculo.IdPessoa" value="@IdPessoa" />
         </div>
         <div class="mb-3">
-            <button class="btn btn-primary">
+            <button class="btn btn-success">
                 Enviar
             </button>
             <a href="/veiculos" class="btn btn-secondary ms-3" data-enhance-nav="false">
@@ -58,10 +58,10 @@
     [SupplyParameterFromForm(FormName = "VeiculoForm")]
     public Veiculo? Veiculo { get; set; }
 
-    public Pessoa? Pessoa {get; set; }
+    [Parameter]
+    public string? IdPessoa {get; set; }
 
     private string Cabecalho => ModoEdicao ? $"Editar Veiculo {IdVeiculo}" : "Novo Veiculo";
-
 
     protected override async Task OnInitializedAsync()
     {

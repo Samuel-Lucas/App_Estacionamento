@@ -19,6 +19,7 @@ public class PessoaRepository : IPessoaRepository
         try
         {
             pessoa.IdPessoa = Guid.NewGuid().ToString();
+            pessoa.Role = "User";
             
             await _context.Pessoas!.AddAsync(pessoa);
             await _context.SaveChangesAsync();
