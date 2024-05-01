@@ -64,8 +64,7 @@
     public Pessoa? Pessoa { get; set; }
 
     private string Cabecalho => ModoEdicao ? $"Editar Pessoa {IdPessoa}" : "Nova Pessoa";
-
-
+    
     protected override async Task OnInitializedAsync()
     {
         if (ModoEdicao)

@@ -13,8 +13,11 @@
       </td>
       <td>
         <div class="d-flex justify-content-around col-8 align-items-center mt-1">
-            <a href='/editapessoa/@pessoa.IdPessoa' class="btn btn-primary">Editar</a>
-            <button @onclick="ConfirmaDialogo" class="btn btn-danger">Remover</button>
+            @if (IsUserLogged().Result)
+            {
+                <a href='/editapessoa/@pessoa.IdPessoa' class="btn btn-primary">Editar</a>
+                <button @onclick="ConfirmaDialogo" class="btn btn-danger">Remover</button>
+            }
         </div>
       </td>
 </tr>
@@ -45,5 +48,10 @@
         await pessoaRepository.DeletarPessoa(pessoa.IdPessoa);
         exibirDialogo = false;
         navigation.NavigateTo("/pessoas");
+    }
+
+    private async Task<bool> IsUserLogged()
+    {
+        return await authenticationRepository.IsCurrentUserOwner(pessoa);
     }
 }
