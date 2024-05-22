@@ -63,7 +63,7 @@
     [SupplyParameterFromForm(FormName = "PessoaForm")]
     public Pessoa? Pessoa { get; set; }
 
-    private string Cabecalho => ModoEdicao ? $"Editar Pessoa {IdPessoa}" : "Nova Pessoa";
+    private string Cabecalho => ModoEdicao ? $"Editar seus dados" : "Nova Pessoa";
     
     protected override async Task OnInitializedAsync()
     {
