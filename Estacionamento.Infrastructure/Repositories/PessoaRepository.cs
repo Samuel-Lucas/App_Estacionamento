@@ -38,6 +38,9 @@ public class PessoaRepository : IPessoaRepository
             if (pessoa is not null)
             {
                 _context.Entry(pessoa).State = EntityState.Modified;
+                _context.Entry(pessoa).Property(x => x.Senha).IsModified = false;
+                _context.Entry(pessoa).Property(x => x.ConfirmaSenha).IsModified = false;
+
                 await _context.SaveChangesAsync();
             }
             else

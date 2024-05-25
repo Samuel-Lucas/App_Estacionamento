@@ -16,17 +16,17 @@ public class Pessoa
     public string SobreNome { get; set; } = null!;
 
     [Required(ErrorMessage = "Informe o seu email")]
-    [StringLength(20)]
+    [StringLength(80)]
     [EmailAddress(ErrorMessage = "O campo Email deve ser um endereço de Email válido")]
     public string Email { get; set; } = null!;
 
     [Required(ErrorMessage = "Informe a senha")]
-    [StringLength(12, MinimumLength = 6, ErrorMessage = "A Senha precisa ter entre 6 e 12 caracteres")]
+    // [StringLength(12, MinimumLength = 6, ErrorMessage = "A Senha precisa ter entre 6 e 12 caracteres")]
     public string Senha { get; set; } = null!;
 
     [Required(ErrorMessage = "Informe a confirmação da senha")]
-    [StringLength(12, MinimumLength = 6, ErrorMessage = "A confirmação da senha precisa ter entre 6 e 12 caracteres")]
-    [Compare(nameof(Senha), ErrorMessage = "Senha informada na confirmação não coincide com o campo Senha")]
+    // [StringLength(12, MinimumLength = 6, ErrorMessage = "A confirmação da senha precisa ter entre 6 e 12 caracteres")]
+    // [Compare(nameof(Senha), ErrorMessage = "Senha informada na confirmação não coincide com o campo Senha")]
     public string ConfirmaSenha { get; set; } = null!;
 
     [StringLength(12)]

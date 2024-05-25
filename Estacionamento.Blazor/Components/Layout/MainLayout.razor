@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @inherits LayoutComponentBase
+@inject IAuthenticationRepository AuthenticationRepository
 
 <div class="page">
     <div class="sidebar bg-dark">
@@ -8,13 +9,23 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">Sobre</a>
+            <div style="position: absolute; left: 0; margin-left: 5px; margin-top: 3px;">
+                <h4>Estacionamento EMEF Jardim Paulo VI</h4>
+            </div>
+            <AuthorizeView>
+                <Authorized>
+                    @if (!string.IsNullOrEmpty(userName))
+                    {
+                        <span><b>Olá, @userName !</b></span>
+                    }
+                </Authorized>
+            </AuthorizeView>
             <AuthorizeView>
                 <NotAuthorized>
                     <a href="/">Login</a>
                 </NotAuthorized>
                 <Authorized>
-                    <a href="/logout">Logout</a>
+                    <a href="/logout">Sair</a>
                 </Authorized>
             </AuthorizeView>
         </div>
@@ -30,3 +41,18 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+
+@code {
+    private string? userName;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var isUserLogged = await authenticationRepository.IsUserAuthenticated();
+
+        if (isUserLogged)
+        {
+            userName = await AuthenticationRepository.GetAuthenticatedSurname();
+        }
+    }
+}

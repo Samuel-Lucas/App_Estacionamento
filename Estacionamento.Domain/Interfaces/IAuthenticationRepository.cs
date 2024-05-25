@@ -8,6 +8,8 @@ public interface IAuthenticationRepository
 {
     Task<IEnumerable<Claim>> AuthenticateAsync(LoginViewModel model);
     Task<string> GetAuthenticatedIdPessoa();
+    Task<string> GetAuthenticatedSurname();
+    Task<bool> IsUserAuthenticated();
     Task<bool> IsCurrentUserOwner(Pessoa pessoa);
     Task<bool> IsCurrentCarOwner(VeiculosResponse donoVeiculo);
 }

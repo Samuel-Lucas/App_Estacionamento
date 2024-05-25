@@ -1,3 +1,3 @@
 namespace Estacionamento.Domain.Entities;
 
-public record PessoaResponse(string nome, string sobreNome, string email, string telefone);
+public record PessoaResponse(string IdPessoa, string Nome, string SobreNome, string Email, string Telefone);
