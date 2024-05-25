@@ -21,12 +21,12 @@ public class Pessoa
     public string Email { get; set; } = null!;
 
     [Required(ErrorMessage = "Informe a senha")]
-    // [StringLength(12, MinimumLength = 6, ErrorMessage = "A Senha precisa ter entre 6 e 12 caracteres")]
+    [StringLength(12, MinimumLength = 6, ErrorMessage = "A Senha precisa ter entre 6 e 12 caracteres")]
     public string Senha { get; set; } = null!;
 
     [Required(ErrorMessage = "Informe a confirmação da senha")]
-    // [StringLength(12, MinimumLength = 6, ErrorMessage = "A confirmação da senha precisa ter entre 6 e 12 caracteres")]
-    // [Compare(nameof(Senha), ErrorMessage = "Senha informada na confirmação não coincide com o campo Senha")]
+    [StringLength(12, MinimumLength = 6, ErrorMessage = "A confirmação da senha precisa ter entre 6 e 12 caracteres")]
+    [Compare(nameof(Senha), ErrorMessage = "Senha informada na confirmação não coincide com o campo Senha")]
     public string ConfirmaSenha { get; set; } = null!;
 
     [StringLength(12)]
@@ -43,13 +43,9 @@ public class Pessoa
         Nome = nome;
         SobreNome = sobreNome;
         Email = email;
-        Senha = senha == string.Empty ? string.Empty : HashPassword(senha);
-        ConfirmaSenha = confirmaSenha == string.Empty ? string.Empty : HashPassword(confirmaSenha);
+        Senha = senha;
+        ConfirmaSenha = confirmaSenha;
         Telefone = telefone;
         Role = role;
     }
-
-    private static string HashPassword(string password)
-        => BCrypt.Net.BCrypt.HashPassword(password);
-
 }
