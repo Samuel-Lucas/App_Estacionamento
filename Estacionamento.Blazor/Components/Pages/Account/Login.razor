@@ -42,6 +42,7 @@
 
     private async Task Authenticate()
     {
+        Model.Senha = HashPassword(Model.Senha);
         var claims = await authenticationRepository.AuthenticateAsync(Model);
 
         if (claims is null)
@@ -52,4 +53,7 @@
         await HttpContext!.SignInAsync(principal);
         navigation.NavigateTo("/pessoas");
     }
+
+    private static string HashPassword(string password)
+        => BCrypt.Net.BCrypt.HashPassword(password);
 }

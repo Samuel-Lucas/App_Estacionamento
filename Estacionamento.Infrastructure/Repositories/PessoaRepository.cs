@@ -20,6 +20,8 @@ public class PessoaRepository : IPessoaRepository
         {
             pessoa.IdPessoa = Guid.NewGuid().ToString();
             pessoa.Role = "User";
+            pessoa.Senha = HashPassword(pessoa.Senha);
+            pessoa.ConfirmaSenha = HashPassword(pessoa.ConfirmaSenha);
             
             await _context.Pessoas!.AddAsync(pessoa);
             await _context.SaveChangesAsync();
@@ -92,4 +94,7 @@ public class PessoaRepository : IPessoaRepository
             throw new Exception($"Ocorre um erro ao buscar pessoas cadastradas: {e.Message}");
         }
     }
+
+    private static string HashPassword(string password)
+        => BCrypt.Net.BCrypt.HashPassword(password);
 }
