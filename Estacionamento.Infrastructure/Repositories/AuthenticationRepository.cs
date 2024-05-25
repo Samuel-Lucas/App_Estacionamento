@@ -35,6 +35,7 @@ public class AuthenticationRepository : IAuthenticationRepository
         {
             new Claim(ClaimTypes.NameIdentifier, userAccount.IdPessoa),
             new Claim(ClaimTypes.Name, model.Email!),
+            new Claim(ClaimTypes.Surname, userAccount.Nome),
             new Claim(ClaimTypes.Role, userAccount.Role!)
         };
     }
@@ -47,6 +48,24 @@ public class AuthenticationRepository : IAuthenticationRepository
             return null!;
         
         return pessoaLogadaId;
+    }
+
+    public async Task<string> GetAuthenticatedSurname()
+    {
+        var surname = await Task.FromResult(_httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Surname)?.Value);
+
+        if (surname is null)
+            return null!;
+        
+        return surname;
+    }
+
+    public async Task<bool> IsUserAuthenticated()
+    {
+        var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        return user.Identity!.IsAuthenticated;
     }
 
     public async Task<bool> IsCurrentUserOwner(Pessoa pessoa)

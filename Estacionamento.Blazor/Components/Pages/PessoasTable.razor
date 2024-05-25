@@ -16,12 +16,12 @@
             @if (IsUserLogged().Result)
             {
                 <a href='/editapessoa/@pessoa.IdPessoa' class="btn btn-primary">Editar</a>
-                <button @onclick="ConfirmaDialogo" class="btn btn-danger">Remover</button>
+                <button @onclick="ConfirmaDialogo" class="btn btn-danger">Excluir conta</button>
             }
             else 
             {
                 <button class="btn btn-primary" disabled>Editar</button>
-                <button class="btn btn-danger" disabled>Remover</button>
+                <button class="btn btn-danger" disabled>Excluir conta</button>
             }
         </div>
       </td>
@@ -30,7 +30,7 @@
 <DialogoComponent Exibir="exibirDialogo" 
                   OnCancel="CancelaExclusao"
                   OnDelete="ConfirmaExclusao">
-   <h3 style="color:red;font-weight:bold">Confirma remoção dessa pessoa : Id=@pessoa.IdPessoa ?</h3>
+   <h3 style="color:red;font-weight:bold">Confirmar exclusão da sua conta ?</h3>
 </DialogoComponent>
 
 @code {
@@ -52,7 +52,7 @@
     {
         await pessoaRepository.DeletarPessoa(pessoa.IdPessoa);
         exibirDialogo = false;
-        navigation.NavigateTo("/pessoas");
+        navigation.NavigateTo("/logout");
     }
 
     private async Task<bool> IsUserLogged()

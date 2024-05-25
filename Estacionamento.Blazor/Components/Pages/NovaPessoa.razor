@@ -1,6 +1,6 @@
 @page "/novapessoa"
 
-<PageTitle>Nova Pessoa</PageTitle>
+<PageTitle>Realizar cadastro</PageTitle>
 
     <div class="col-6">
         <PessoaForm ModoEdicao="false" OnValidaPessoaSubmit="AdicionarPessoa" />
@@ -10,6 +10,6 @@
     private async Task AdicionarPessoa(Pessoa pessoa)
     {
         await pessoaRepository.AdicionarPessoa(pessoa);
-        navigation.NavigateTo("/pessoas");
+        navigation.NavigateTo("/");
     }
 }

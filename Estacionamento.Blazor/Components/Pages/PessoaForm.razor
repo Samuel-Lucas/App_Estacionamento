@@ -8,6 +8,7 @@
         @if (ModoEdicao)
         {
             <input type="hidden" name="Pessoa.IdPessoa" value="@Pessoa.IdPessoa" />
+            <input type="hidden" name="Pessoa.Role" value="@Pessoa.Role" />
         }
 
         <div class="mb-3">
@@ -22,14 +23,28 @@
             <label for="email" class="form-label">Email</label>
             <InputText id="email" @bind-Value="Pessoa.Email" class="form-control" />
         </div>
-        <div class="mb-3">
-            <label for="senha" class="form-label">Senha</label>
-            <InputText type="password" id="senha" @bind-Value="Pessoa.Senha" class="form-control" placeholder="Senha" />
-        </div>
-        <div class="mb-3">
-            <label for="confirmasenha" class="form-label">Confirmar Senha</label>
-            <InputText type="password" id="confirmasenha" @bind-Value="Pessoa.ConfirmaSenha" class="form-control" placeholder="Confirmar Senha" />
-        </div>
+        @if (ModoEdicao)
+        {
+            <div class="mb-3" hidden>
+                <label for="senha" class="form-label">Senha</label>
+                <InputText type="password" id="senha" @bind-Value="Pessoa.Senha" class="form-control" MaxLength="100"/>
+            </div>
+            <div class="mb-3" hidden>
+                <label for="confirmasenha" class="form-label">Confirmar Senha</label>
+                <InputText type="password" id="confirmasenha" @bind-Value="Pessoa.ConfirmaSenha" class="form-control" MaxLength="100"/>
+            </div>
+        }
+        else
+        {
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha</label>
+                <InputText type="password" id="senha" @bind-Value="Pessoa.Senha" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="confirmasenha" class="form-label">Confirmar Senha</label>
+                <InputText type="password" id="confirmasenha" @bind-Value="Pessoa.ConfirmaSenha" class="form-control" />
+            </div>
+        }
         <div class="mb-3">
             <label for="telefone" class="form-label">Telefone</label>
             <InputText id="telefone" @bind-Value="Pessoa.Telefone" class="form-control" />
@@ -63,7 +78,7 @@
     [SupplyParameterFromForm(FormName = "PessoaForm")]
     public Pessoa? Pessoa { get; set; }
 
-    private string Cabecalho => ModoEdicao ? $"Editar seus dados" : "Nova Pessoa";
+    private string Cabecalho => ModoEdicao ? $"Editar seus dados" : "Realizar cadastro";
     
     protected override async Task OnInitializedAsync()
     {
