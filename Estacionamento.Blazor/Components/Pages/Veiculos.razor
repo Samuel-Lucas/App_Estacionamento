@@ -1,10 +1,16 @@
 @page "/veiculos"
 
 <h3>Veiculos cadastrados</h3>
+<br />
 
-<p>
-    <a href="/novoveiculo">Cadastrar Novo Veiculo</a>
-</p>
+<AuthorizeView>
+    <Authorized>
+        <p>
+            <a href="/novoveiculo">Cadastrar Novo Veiculo</a>
+        </p>
+    </Authorized>
+</AuthorizeView>
+
 @if (veiculos is null)
 {
    <p>Sem veiculos cadastrados</p>

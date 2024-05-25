@@ -15,9 +15,17 @@
              @veiculo.nome @veiculo.sobreNome
       </td>
       <td>
-        <div class="d-flex justify-content-around col-6 align-items-center mt-1">
-            <a href='/editaveiculo/@veiculo.idVeiculo' class="btn btn-primary">Editar</a>
-            <button @onclick="ConfirmaDialogo" class="btn btn-danger">Remover</button>
+        <div class="d-flex justify-content-around col-8 align-items-center mt-1">
+            @if (IsUserWithCarLogged().Result)
+            {
+                <a href='/editaveiculo/@veiculo.idVeiculo' class="btn btn-primary">Editar</a>
+                <button @onclick="ConfirmaDialogo" class="btn btn-danger">Remover</button>
+            }
+            else 
+            {
+                <button class="btn btn-primary" disabled>Editar</button>
+                <button class="btn btn-danger" disabled>Remover</button>
+            }
         </div>
       </td>
 </tr>
@@ -48,5 +56,10 @@
         await veiculoRepository.DeletarVeiculo(veiculo.idVeiculo);
         exibirDialogo = false;
         navigation.NavigateTo("/veiculos");
+    }
+
+    private async Task<bool> IsUserWithCarLogged()
+    {
+        return await authenticationRepository.IsCurrentCarOwner(veiculo);
     }
 }

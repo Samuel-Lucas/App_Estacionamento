@@ -99,6 +99,7 @@ public class VeiculoRepository : IVeiculoRepository
                                             p.Modelo,
                                             p.Cor,
                                             p.Placa,
+                                            p.IdPessoa,
                                             p.Pessoa.Nome,
                                             p.Pessoa.SobreNome
                                         ));

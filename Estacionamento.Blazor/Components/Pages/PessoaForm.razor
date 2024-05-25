@@ -23,11 +23,19 @@
             <InputText id="email" @bind-Value="Pessoa.Email" class="form-control" />
         </div>
         <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <InputText type="password" id="senha" @bind-Value="Pessoa.Senha" class="form-control" placeholder="Senha" />
+        </div>
+        <div class="mb-3">
+            <label for="confirmasenha" class="form-label">Confirmar Senha</label>
+            <InputText type="password" id="confirmasenha" @bind-Value="Pessoa.ConfirmaSenha" class="form-control" placeholder="Confirmar Senha" />
+        </div>
+        <div class="mb-3">
             <label for="telefone" class="form-label">Telefone</label>
             <InputText id="telefone" @bind-Value="Pessoa.Telefone" class="form-control" />
         </div>
         <div class="mb-3">
-            <button class="btn btn-primary">
+            <button class="btn btn-success">
                 Enviar
             </button>
             <a href="/pessoas" class="btn btn-secondary ms-3" data-enhance-nav="false">
@@ -55,15 +63,14 @@
     [SupplyParameterFromForm(FormName = "PessoaForm")]
     public Pessoa? Pessoa { get; set; }
 
-    private string Cabecalho => ModoEdicao ? $"Editar Pessoa {IdPessoa}" : "Nova Pessoa";
-
-
+    private string Cabecalho => ModoEdicao ? $"Editar seus dados" : "Nova Pessoa";
+    
     protected override async Task OnInitializedAsync()
     {
         if (ModoEdicao)
             Pessoa ??= await pessoaRepository.ObterPessoa(IdPessoa);
         else
-           Pessoa ??= new Pessoa(string.Empty, string.Empty, string.Empty, string.Empty);
+           Pessoa ??= new Pessoa(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
     }
 
     private async Task EditaAdicionaPessoa()

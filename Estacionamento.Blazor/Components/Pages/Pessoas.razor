@@ -1,10 +1,8 @@
 @page "/pessoas"
 
 <h3>Pessoas</h3>
+<br />
 
-<p>
-    <a href="/novapessoa">Cadastrar Nova Pessoa</a>
-</p>
 @if (pessoas is null)
 {
    <p>Sem pessoas cadastradas</p>
@@ -17,6 +15,7 @@ else
             <th scope="col" class="text-center">Nome</th>
             <th scope="col" class="text-center">Sobrenome</th>
             <th scope="col" class="text-center">Email</th>
+            <th scope="col" class="text-center">Telefone</th>
             <th scope="col"></th>
             </tr>
         </thead>
