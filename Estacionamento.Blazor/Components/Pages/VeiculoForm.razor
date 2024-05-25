@@ -13,18 +13,22 @@
         <div class="mb-3">
             <label for="marca" class="form-label">Marca</label>
             <InputText id="marca" @bind-Value="Veiculo.Marca" class="form-control" />
+            <ValidationMessage For="@(() => Veiculo.Marca)" />
         </div>
         <div class="mb-3">
             <label for="modelo" class="form-label">Modelo</label>
             <InputText id="modelo" @bind-Value="Veiculo.Modelo" class="form-control" />
+            <ValidationMessage For="@(() => Veiculo.Modelo)" />
         </div>
         <div class="mb-3">
             <label for="cor" class="form-label">Cor</label>
             <InputText id="cor" @bind-Value="Veiculo.Cor" class="form-control" />
+            <ValidationMessage For="@(() => Veiculo.Cor)" />
         </div>
         <div class="mb-3">
             <label for="placa" class="form-label">Placa</label>
             <InputText id="placa" @bind-Value="Veiculo.Placa" class="form-control" />
+            <ValidationMessage For="@(() => Veiculo.Placa)" />
         </div>
         <br />
         <input type="hidden" name="Veiculo.IdPessoa" value="@IdPessoa" />
@@ -39,7 +43,6 @@
         </div>
 
         <DataAnnotationsValidator />
-        <ValidationSummary />
    </EditForm>
 }
 
