@@ -16,29 +16,35 @@
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             <InputText id="nome" @bind-Value="Pessoa.Nome" class="form-control" />
+            <ValidationMessage For="@(() => Pessoa.Nome)" />
         </div>
         <div class="mb-3">
             <label for="sobrenome" class="form-label">Sobrenome</label>
             <InputText id="sobrenome" @bind-Value="Pessoa.SobreNome" class="form-control" />
+            <ValidationMessage For="@(() => Pessoa.SobreNome)" />
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <InputText id="email" @bind-Value="Pessoa.Email" class="form-control" />
+            <ValidationMessage For="@(() => Pessoa.Email)" />
         </div>
         @if (!ModoEdicao)
         {
             <div class="mb-3">
                 <label for="senha" class="form-label">Senha</label>
                 <InputText type="password" id="senha" @bind-Value="Pessoa.Senha" class="form-control" />
+                <ValidationMessage For="@(() => Pessoa.Senha)" />
             </div>
             <div class="mb-3">
                 <label for="confirmasenha" class="form-label">Confirmar Senha</label>
                 <InputText type="password" id="confirmasenha" @bind-Value="Pessoa.ConfirmaSenha" class="form-control" />
+                <ValidationMessage For="@(() => Pessoa.ConfirmaSenha)" />
             </div>
         }
         <div class="mb-3">
             <label for="telefone" class="form-label">Telefone</label>
             <InputText id="telefone" @bind-Value="Pessoa.Telefone" class="form-control" />
+            <ValidationMessage For="@(() => Pessoa.Telefone)" />
         </div>
         <div class="mb-3">
             <button class="btn btn-success">
@@ -50,7 +56,6 @@
         </div>
 
         <DataAnnotationsValidator />
-        <ValidationSummary />
    </EditForm>
 }
 
