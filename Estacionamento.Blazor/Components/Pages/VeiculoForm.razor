@@ -63,7 +63,7 @@
     [Parameter]
     public string? IdPessoa {get; set; }
 
-    private string Cabecalho => ModoEdicao ? $"Editar Veiculo {IdVeiculo}" : "Novo Veiculo";
+    private string Cabecalho => ModoEdicao ? $"Editar Veiculo" : "Novo Veiculo";
 
     protected override async Task OnInitializedAsync()
     {
