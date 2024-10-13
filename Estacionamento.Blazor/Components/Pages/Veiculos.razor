@@ -1,13 +1,23 @@
 @page "/veiculos"
 
-<h3>Veiculos cadastrados</h3>
+<h4>Veiculos cadastrados</h4>
 <br />
 
 <AuthorizeView>
     <Authorized>
-        <p>
-            <a href="/novoveiculo">Cadastrar Novo Veiculo</a>
-        </p>
+        @if (QtdVagas > 0)
+        {
+            <a class="btn btn-primary" href="/novoveiculo">Cadastrar Novo Veiculo</a>
+            <br />
+            
+            <h4>Vagas restantes: @QtdVagas</h4>
+            <br />
+        }
+        else
+        {
+            <h4 class="text-danger">Todas as vagas ocupadas !</h4>
+            <br />
+        }
     </Authorized>
 </AuthorizeView>
 
@@ -39,9 +49,19 @@ else
 
 @code {
     IEnumerable<VeiculosResponse>? veiculos;
+
+    private int QtdVagas;
+
+    private bool exibirDialogoQtdVeiculos;
+
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(800);
         veiculos = await veiculoRepository.ObterVeiculos();
+        QtdVagas = QuantidadeVagas();
+    }
+
+    private int QuantidadeVagas()
+    {
+        return (3 - @veiculos!.Count());
     }
 } 
